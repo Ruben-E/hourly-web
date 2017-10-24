@@ -1,14 +1,8 @@
 <template>
 
   <div class="hello">
-    <b-container class="bv-example-row">
-    <b-row>
-        <b-col>1 of 3</b-col>
-        <b-col>2 of 3</b-col>
-        <b-col>3 of 3</b-col>
-    </b-row>
-</b-container>
     <h1>{{ msg }}</h1>
+    
     <h2>Essential Links</h2>
     <ul>
       <li><a href="https://vuejs.org" target="_blank">Core Docs</a></li>
@@ -29,19 +23,53 @@
 </template>
 
 <script>
+import gql from "graphql-tag";
+
 export default {
-  name: 'HelloWorld',
-  data () {
-    return {
-      msg: 'Welcome to Your Vue.js App'
+  name: "HelloWorld",
+  apollo: {
+    projects: {
+      // gql query
+      query: gql`
+        query Query($employeeId: String!) {
+          employee(id: $employeeId) {
+            workWeeks {
+              week
+              year
+
+              items {
+                monday
+                tuesday
+                wednesday
+                thursday
+                friday
+                saturday
+                sunday
+              }
+            }
+          }
+        }
+      `,
+      variables() {
+        return {
+          employeeId: "ruben@openvalue.nl"
+        }
+      }
     }
+  },
+  data() {
+    return {
+      msg: "Welcome to Your Vue.js App",
+      projects: '',
+    };
   }
-}
+};
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-h1, h2 {
+h1,
+h2 {
   font-weight: normal;
 }
 

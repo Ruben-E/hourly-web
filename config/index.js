@@ -35,9 +35,7 @@ module.exports = {
       '/graphql': {
         target: 'http://localhost:8080',
         changeOrigin: true,
-        pathRewrite: {
-          '^/graphql': ''
-        }
+        pathRewrite: {}
       }
     },
     // CSS Sourcemaps off by default because relative paths are "buggy"
